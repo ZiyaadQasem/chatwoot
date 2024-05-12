@@ -19,6 +19,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       GIT_REF: ${{ github.head_ref || github.ref_name }} # ref_name to get tags/branches
+      
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -38,7 +39,7 @@ jobs:
         run: |
           echo -en '\nENV CW_EDITION="ce"' >> docker/Dockerfile
 
-     - name: Bump version and push tag
+      - name: Bump version and push tag
         if: github.event_name == 'push'
         id: tag_version_dry
         uses: mathieudutour/github-tag-action@v6.0
