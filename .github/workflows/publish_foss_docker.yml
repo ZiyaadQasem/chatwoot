@@ -56,8 +56,7 @@ jobs:
           fi
 
           docker build \
-            --build-arg RELEASE_TAG=${RELEASE_TAG} \
-            -tchatwoot:latest docker/Dockerfile
+            -t chatwoot:latest docker/Dockerfile
 
       - name: Push Docker Image DockerHub (prod)
         if: github.event_name == 'push'
