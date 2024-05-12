@@ -49,14 +49,12 @@ jobs:
 
       - name: Build Docker image
         run: |
-          RELEASE_TAG='stage-${{ env.CI_ACTION_REF_NAME_SLUG }}'
-          if [[ ${{ env.CI_ACTION_REF_NAME_SLUG }} = 'develop' ]];
-          then
-            RELEASE_TAG='${{ steps.tag_version_dry.outputs.new_tag }}'
-          fi
-
-          docker build \
-            -t chatwoot:latest -f docker/Dockerfile .
+            RELEASE_TAG="stage-${{ env.CI_ACTION_REF_NAME_SLUG }}"
+            if [[ "${{ env.CI_ACTION_REF_NAME_SLUG }}" = 'develop' ]]; then
+              RELEASE_TAG="${{ steps.tag_version_dry.outputs.new_tag }}"
+            fi
+        
+            docker build -t chatwoot:latest -f docker/Dockerfile .
 
       - name: Push Docker Image DockerHub (prod)
         if: github.event_name == 'push'
