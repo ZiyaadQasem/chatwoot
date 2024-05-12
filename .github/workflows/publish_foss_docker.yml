@@ -57,15 +57,15 @@ jobs:
 
           docker build \
             --build-arg RELEASE_TAG=${RELEASE_TAG} \
-            -t $IMAGE_NAME:latest docker/Dockerfile
+            -tchatwoot:latest docker/Dockerfile
 
       - name: Push Docker Image DockerHub (prod)
         if: github.event_name == 'push'
         run: |
           echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
 
-          docker tag ${IMAGE_NAME}:latest ${IMAGE_NAME_DH}:${{ steps.tag_version_dry.outputs.new_tag }}
-          docker push ${IMAGE_NAME_DH}:${{ steps.tag_version_dry.outputs.new_tag }}
+          docker tag chatwoot:latest chatwoot:${{ steps.tag_version_dry.outputs.new_tag }}
+          docker push chatwoot:${{ steps.tag_version_dry.outputs.new_tag }}
 
       - name: Bump version and push tag
         if: github.event_name == 'push'
@@ -84,5 +84,5 @@ jobs:
             TAG='latest'
           fi
 
-          docker tag ${IMAGE_NAME}:latest ${IMAGE_NAME_DH}:${TAG}
-          # docker push ${IMAGE_NAME_DH}:${TAG}
+          docker tag chatwoot:latest chatwoot:${TAG}
+          # docker push chatwoot:${TAG}
