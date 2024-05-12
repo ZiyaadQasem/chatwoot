@@ -56,7 +56,7 @@ jobs:
           fi
 
           docker build \
-            -t chatwoot:latest docker/Dockerfile
+            -t chatwoot:latest -f docker/Dockerfile
 
       - name: Push Docker Image DockerHub (prod)
         if: github.event_name == 'push'
