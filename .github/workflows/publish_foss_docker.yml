@@ -59,10 +59,10 @@ jobs:
       - name: Push Docker Image DockerHub (prod)
         if: github.event_name == 'push'
         run: |
-          echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
+         # echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
 
           docker tag chatwoot:latest chatwoot:${{ steps.tag_version_dry.outputs.new_tag }}
-          docker push chatwoot:${{ steps.tag_version_dry.outputs.new_tag }}
+         # docker push chatwoot:${{ steps.tag_version_dry.outputs.new_tag }}
 
       - name: Bump version and push tag
         if: github.event_name == 'push'
